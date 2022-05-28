@@ -1,0 +1,30 @@
+<objects>
+  <object Name="RitaTentacle" Inherits="NaturalWeapon">
+    <part Name="Render" DisplayName="tentacle" />
+    <part Name="MeleeWeapon" MaxStrengthBonus="1000" BaseDamage="1d2" Skill="LongBlades" Stat="Strength" Slot="RitaTentacle" />
+    <part Name="RitaTentacleProperties" />
+    <tag Name="ShowAsPhysicalFeature" />
+  </object>
+  <object Name="RitaTentacleLauncher">
+    <part Name="MissileWeapon" ShotsPerAction="1" ShotsPerAnimation="1" WeaponAccuracy="0" />
+    <part Name="PerfectAccuracy" /> <!-- will never miss -->
+    <part Name="InfiniteAmmoLoader" ProjectileObject="RitaTentacleProjectile" />
+    <!-- replace with a weird squelch sound probably <tag Name="MissileFireSound" Value="warp_ray" /> -->
+  </object>
+  <object Name="RitaTentacleProjectile" Inherits="TemporaryProjectile">
+    <part Name="Render" DisplayName="{{watery|tentacle}}" ColorString="&amp;c" />
+    <part Name="Projectile" BaseDamage="0" Quiet="true" Attributes="NonPenetrating" ColorString="&amp;c" PassByVerb="dart" />
+    <tag Name="NoDodging" />
+    <part Name="HookOnProjectileHit" />
+    <part Name="TreatAsSolid" RealityDistortionBased="true" Hits="false" />
+  </object>
+  <object Name="Bio-Decoy" Inherits="InertObject">
+    <part Name="Render" DisplayName="[Decoy]" RenderString="@" RenderLayer="6" ColorString="&amp;R" />
+    <part Name="Distraction" />
+    <part Name="DecoyInvulnerability" />
+    <part Name="Combat" />
+    <tag Name="IgnoresGravity" />
+    <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit" />
+    <xtagGrammar Proper="true" />
+  </object>
+</objects>

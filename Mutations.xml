@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mutations>
+  <category Name="Physical">
+    <mutation Name="Fins" Cost="2" MaxSelected="1" Class="RitaFins" Exclusions="" BearerDescription="those with fins" Code="rf" Tile="Mutations/rita_fins.bmp" />
+    <mutation Name="Tentacles" Cost="5" MaxSelected="1" Class="RitaTentacles" Exclusions="" BearerDescription="those with tentacles" Code="rt" Tile="Mutations/rita_tentacles.bmp" />
+    <mutation Name="Bio-Decoy" Cost="3" MaxSelected="1" Class="RitaBioDecoy" Exclusions="" BearerDescription="the deimatic" Code="rd" Tile="Mutations/rita_decoy.bmp" />
+  </category>
+  <category Name="Mental">
+    <mutation Name="Hive Presence" Cost="4" MaxSelected="1" Class="RitaHivePresence" Exclusions="" BearerDescription="hive-monarchs" Code="rh" Tile="Mutations/rita_hivepres.bmp" />
+  </category>
+</mutations>

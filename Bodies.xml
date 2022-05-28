@@ -1,0 +1,5 @@
+<bodies>
+  <bodyparttypevariants>
+    <bodyparttypevariant VariantOf="Tail" Description="Tentacle" Type="RitaTentacle" DefaultBehavior="RitaTentacle" Mobility="0" UsuallyOn="Back" />
+  </bodyparttypevariants>
+</bodies>
