@@ -4,6 +4,7 @@ using XRL.Language;
 using XRL.Messages;
 using XRL.Rules;
 using XRL.UI;
+using XRL.World.Anatomy;
 
 namespace XRL.World.Parts.Mutation
 {

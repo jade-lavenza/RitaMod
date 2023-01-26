@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using XRL.UI;
+using XRL.World.Anatomy;
 
 namespace XRL.World.Parts.Mutation
 {
