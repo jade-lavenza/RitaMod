@@ -78,7 +78,7 @@ namespace XRL.World.Parts
 						break;
 					}
 					string directionFromCell = lastCell.GetDirectionFromCell(nextCell);
-					if (!tooHeavy && !defender.Move(directionFromCell, Forced: true, System: false, IgnoreGravity: true, NoStack: false, attacker))
+					if (!tooHeavy && !defender.Move(directionFromCell, Forced: true, System: false, IgnoreGravity: true, NoStack: false, AllowDashing: true, DoConfirmations: true, attacker))
 					{
 						break;
 					}
