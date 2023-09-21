@@ -81,7 +81,7 @@ namespace XRL.World.Parts.Mutation
 					}
 					return false;
 				}
-				List<Cell> affectedCells = PickCircle(GetRadius(), GetRange(), bLocked: false, AllowVis.OnlyVisible);
+				List<Cell> affectedCells = PickCircle(GetRadius(), GetRange(), Locked: false, AllowVis.OnlyVisible);
 				if (affectedCells == null || affectedCells.Count <= 0 || affectedCells[0].DistanceTo(ParentObject) > GetRange())
 				{
 					return false;
