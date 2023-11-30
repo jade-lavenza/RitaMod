@@ -18,15 +18,11 @@ namespace XRL.World.Parts
 			return base.SameAs(p);
 		}
 
-		public override void Register(GameObject Object)
-		{
-			Object.RegisterPartEvent(this, "LoadAmmo");
-			base.Register(Object);
-		}
-
 		public override bool WantEvent(int ID, int cascade)
 		{
-			if(ID == GetProjectileBlueprintEvent.ID)
+			if(ID == GetProjectileBlueprintEvent.ID || 
+			   ID == GetMissileWeaponProjectileEvent.ID || 
+			   ID == LoadAmmoEvent.ID)
 			{
 				return true;
 			}
@@ -35,7 +31,7 @@ namespace XRL.World.Parts
 
 		public override bool HandleEvent(GetProjectileBlueprintEvent E)
 		{
-			if (!string.IsNullOrEmpty(ProjectileObject))
+			if (!ProjectileObject.IsNullOrEmpty())
 			{
 				E.Blueprint = ProjectileObject;
 			}
@@ -44,7 +40,7 @@ namespace XRL.World.Parts
 
 		public override bool HandleEvent(GetMissileWeaponProjectileEvent E)
 		{
-			if (!string.IsNullOrEmpty(ProjectileObject))
+			if (!ProjectileObject.IsNullOrEmpty())
 			{
 				E.Blueprint = ProjectileObject;
 				return false;
@@ -52,16 +48,13 @@ namespace XRL.World.Parts
 			return base.HandleEvent(E);
 		}
 
-		public override bool FireEvent(Event E)
+		public override bool HandleEvent(LoadAmmoEvent E)
 		{
-			if (E.ID == "LoadAmmo")
+			if (!ProjectileObject.IsNullOrEmpty())
 			{
-				if (ProjectileObject != null)
-				{
-					E.SetParameter("Ammo", GameObject.Create(ProjectileObject));
-				}
+				E.Projectile = GameObject.Create(ProjectileObject, Context: "Projectile");
 			}
-			return base.FireEvent(E);
+			return base.HandleEvent(E);
 		}
 	}
 }

@@ -58,7 +58,6 @@ namespace XRL.World.Parts
                 }
 				text = ((attackerCell.X == defenderCell.X) ? (text + "|") : ((attackerCell.Y == defenderCell.Y) ? (text + "-") : ((attackerCell.Y < defenderCell.Y) ? ((attackerCell.X <= defenderCell.X) ? (text + "\\") : (text + "/")) : ((attackerCell.X <= defenderCell.X) ? (text + "/") : (text + "\\")))));
 				int tilesMoved = 0;
-                int MaxGrabWeight = 0;
                 Debug.LogWarning("Firing GetTentacleGrabCapacity event");
                 Event eTentacleGrabCapacity = Event.New("GetTentacleGrabCapacity", "Capacity", 0);
                 if(!attacker.FireEvent(eTentacleGrabCapacity))
@@ -67,7 +66,7 @@ namespace XRL.World.Parts
                     return true;
                 }
                 Debug.LogWarning($"GetTentacleGrabCapacity event fired, result: {eTentacleGrabCapacity.GetParameter("Capacity")}");
-                MaxGrabWeight = eTentacleGrabCapacity.GetParameter<int>("Capacity");
+                int MaxGrabWeight = eTentacleGrabCapacity.GetParameter<int>("Capacity");
                 bool tooHeavy = MaxGrabWeight / Math.Max(defender.GetKineticResistance(), 1) < 1;
 				Cell lastCell = defender.CurrentCell;
                 for (int currentTile = lineTo.Count - 2; currentTile >= 1 && defender.CurrentCell == lastCell; currentTile--)

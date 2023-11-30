@@ -5,7 +5,7 @@
     <part Name="RitaTentacleProperties" />
     <tag Name="ShowAsPhysicalFeature" />
   </object>
-  <object Name="RitaTentacleLauncher">
+  <object Name="RitaTentacleLauncher" Inherits="Item">
     <part Name="MissileWeapon" ShotsPerAction="1" ShotsPerAnimation="1" WeaponAccuracy="0" />
     <part Name="PerfectAccuracy" /> <!-- will never miss -->
     <part Name="InfiniteAmmoLoader" ProjectileObject="RitaTentacleProjectile" />
