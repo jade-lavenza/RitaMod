@@ -41,6 +41,7 @@ namespace XRL.World.Parts.Mutation
 			Object.RegisterPartEvent(this, "GetTentacleGrabCapacity");
 			Object.RegisterPartEvent(this, "OnTentacleGrabTooHeavy");
 			Object.RegisterPartEvent(this, "OnTentacleGrabCantMove");
+			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
 			base.Register(Object);
 		}
 
@@ -166,7 +167,18 @@ namespace XRL.World.Parts.Mutation
 				}
 				CooldownMyActivatedAbility(TentacleGrabActivatedAbilityID, GrabCooldown);
 			}
+			else if (E.ID == "BeforeAbilityManagerOpen")
+			{
+				DescribeMyActivatedAbility(TentacleGrabActivatedAbilityID, CollectStats);
+			}
 			return base.FireEvent(E);
+		}
+
+		public override void CollectStats(Templates.StatCollector stats, int Level)
+		{
+			stats.Set("GrabFactor", $"{GetTentacleGrabFactor(Level)}");
+			stats.Set("Range", GetRange(Level));
+			stats.CollectCooldownTurns(MyActivatedAbility(TentacleGrabActivatedAbilityID), GrabCooldown);
 		}
 
 		public void AddMoreTentacles(GameObject GO)

@@ -1,0 +1,35 @@
+<activatedabilities>
+	<ability Command="CommandBioDecoy">
+		<description>
+			<p>You deploy lures that distract enemies.</p>
+			<br/>
+			<p>Creates a total of <stat Name="Quantity" /> bio-decoys.</p>
+			<statline Name="Range" />
+			<statline Name="Duration" />
+			<statline Name="Cooldown" />
+		</description>
+		<UITile Tile="Mutations/rita_decoy.bmp" Foreground="K" Detail="B" />
+	</ability>
+	<ability Command="CommandHivePresence">
+		<description>
+			<p>You attempt to turn enemies into temporary allies for <stat Name="Duration" />.</p>
+			<br/>
+			<p>Mental attack vs. all creatures with minds in area</p>
+			<p>Attack roll: <stat Name="Attack" /> vs. defender MA + level</p>
+			<statline Name="Range" />
+			<statline Name="Radius" />
+			<statline Name="Duration" />
+			<statline Name="Cooldown" />
+		</description>
+		<UITile Tile="Mutations/rita_hivepres.bmp" Foreground="W" Detail="B" />
+	</ability>
+	<ability Command="CommandRitaTentacleGrab">
+		<description>
+			<p>You lash out with your tentacles, pulling an object or creature towards you.</p>
+			<br/>
+			<p>Your tentacles can pull <stat Name="GrabFactor" /> times your own weight.</p>
+			<statline Name="Cooldown" />
+		</description>
+		<UITile Tile="Mutations/rita_tentacles.bmp" Foreground="B" Detail="C" />
+	</ability>
+</activatedabilities>

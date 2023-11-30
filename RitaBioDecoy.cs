@@ -195,6 +195,7 @@ namespace XRL.World.Parts.Mutation
 			Object.RegisterPartEvent(this, "BeginTakeAction");
 			Object.RegisterPartEvent(this, "AfterMoved");
 			Object.RegisterPartEvent(this, "CommandBioDecoy");
+			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
 			base.Register(Object);
 		}
 
@@ -231,6 +232,7 @@ namespace XRL.World.Parts.Mutation
 				TurnsRemaining = GetMaxDuration();
             }
 			else if (E.ID == "AfterMoved")
+			{
 				for (int i = 0; i < Decoys.Count; i++)
 				{
 					GameObject currentDecoy = Decoys[i];
@@ -243,8 +245,22 @@ namespace XRL.World.Parts.Mutation
 						currentDecoy.Move(Directions.GetOppositeDirection(E.GetStringParameter("Direction")), Forced: true);
 					}
 				}
-            return base.FireEvent(E);
-        }
+			}
+			else if (E.ID == "BeforeAbilityManagerOpen")
+			{
+				DescribeMyActivatedAbility(DecoyActivatedAbilityID, CollectStats);
+			}
+			return base.FireEvent(E);
+		}
+
+		public override void CollectStats(Templates.StatCollector stats, int Level)
+		{
+			stats.CollectCooldownTurns(MyActivatedAbility(DecoyActivatedAbilityID), EffectCooldown);
+			bool isNotAbility = !stats.mode.Contains("ability");
+			stats.Set("Quantity", GetMaxDecoys(Level), isNotAbility);
+			stats.Set("Range", GetMaxRange(Level), isNotAbility);
+			stats.Set("Duration", GetMaxDuration(Level), isNotAbility);
+		}
 
 		public override bool Mutate(GameObject GO, int Level)
 		{

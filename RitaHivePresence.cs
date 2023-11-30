@@ -62,7 +62,13 @@ namespace XRL.World.Parts.Mutation
 		public override void Register(GameObject Object)
 		{
 			Object.RegisterPartEvent(this, "CommandHivePresence");
+			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
 			base.Register(Object);
+		}
+
+		public int GetMentalAttackModifier(int Level)
+		{
+			return ParentObject.Stat("Level") + Math.Max(ParentObject.StatMod("Ego"), Level);
 		}
 
 		public override bool FireEvent(Event E)
@@ -101,7 +107,7 @@ namespace XRL.World.Parts.Mutation
 							continue;
 						}
 						numAttacked++;
-						Mental.PerformAttack(Presence, ParentObject, defender, Dice: "1d8", Type: 1, DefenseModifier: defender.Stat("Level"));
+						Mental.PerformAttack(Presence, ParentObject, defender, Dice: "1d8", Type: 1, AttackModifier: GetMentalAttackModifier(Level), DefenseModifier: defender.Stat("Level"));
 					}
 				}
 				if (numAttacked <= 0 && ParentObject.IsPlayer())
@@ -109,7 +115,31 @@ namespace XRL.World.Parts.Mutation
 					Popup.ShowFail("There are no valid targets in that area!");
 				}
 			}
+			else if (E.ID == "BeforeAbilityManagerOpen")
+			{
+				DescribeMyActivatedAbility(PresenceActivatedAbilityID, CollectStats);
+			}
 			return base.FireEvent(E);
+		}
+
+		public override void CollectStats(Templates.StatCollector stats, int Level)
+		{
+			stats.CollectCooldownTurns(MyActivatedAbility(PresenceActivatedAbilityID), EffectCooldown);
+			int attackModifier = GetMentalAttackModifier(Level);
+			string attackRoll = "1d8";
+			if (attackModifier > 0)
+			{
+				attackRoll += "+" + attackModifier;
+			}
+			else if (attackModifier < 0)
+			{
+				attackRoll += attackModifier;
+			}
+			bool isNotAbility = !stats.mode.Contains("ability");
+			stats.Set("Attack", attackRoll, isNotAbility);
+			stats.Set("Duration", EffectDuration);
+			stats.Set("Range", GetRange(Level), isNotAbility);
+			stats.Set("Radius", GetRadius(Level), isNotAbility);
 		}
 
 		private bool Presence(MentalAttackEvent E)
