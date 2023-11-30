@@ -73,7 +73,7 @@ namespace XRL.World.Parts.Mutation
 
 		public void PlaceDecoy(Cell C)
 		{
-			GameObject gameObject = GameObject.create("Bio-Decoy");
+			GameObject gameObject = GameObject.Create("Bio-Decoy");
 			gameObject.pRender.Tile = ParentObject.pRender.Tile;
 			gameObject.pRender.RenderString = ParentObject.pRender.RenderString;
 			gameObject.pRender.DisplayName = ParentObject.pRender.DisplayName;

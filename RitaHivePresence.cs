@@ -88,7 +88,7 @@ namespace XRL.World.Parts.Mutation
 				}
 				UseEnergy(1000, "Mental Mutation");
 				CooldownMyActivatedAbility(PresenceActivatedAbilityID, EffectCooldown);
-				PlayWorldSound("time_dilation", 0.5f, 0f, combat: true);
+				PlayWorldSound("time_dilation", 0.5f, 0f, Combat: true);
 				XRLCore.ParticleManager.AddRadial("&C@", affectedCells[0].X, affectedCells[0].Y, XRL.Rules.Stat.Random(0, 5), XRL.Rules.Stat.Random(4, 8), 0.01f * (float)XRL.Rules.Stat.Random(3, 5), -0.05f * (float)XRL.Rules.Stat.Random(2, 6));
 				int attackModifier = ParentObject.Stat("Level") + Math.Max(ParentObject.StatMod("Ego"), Level);
 				int numAttacked = 0;

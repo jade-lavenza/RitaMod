@@ -2,7 +2,7 @@
   "WorkshopId": 2801509438,
   "Title": "Rita Mod",
   "Description": "Adds four new mutations, three physical and one mental:\r\n\r\nFins: Drastically increases swimming and wading speed, with a small amount of DV as a bonus.\r\nTentacles: Gain a large number of individually weak natural attacks, plus an active ability which pulls a target towards you.\r\nBio-Decoys: Create decoys of yourself with morphic lures or appendages to distract enemies.\r\nHive Presence: Area psychic attack that temporarily forces targets to be Friendly to you, and Hostile to your enemies.\r\n\r\nThese powers are modeled off of Rita Ma, from the excellent manhwa Leviathan, but they are general enough to be used in a wide variety of builds and character concepts.",
-  "Tags": "Mutation,Ability,Stable",
+  "Tags": "Mutation,Ability,Stable,Beta",
   "Visibility": "2",
   "ImagePath": "preview.png"
 }

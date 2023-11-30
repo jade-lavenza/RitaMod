@@ -13,7 +13,7 @@ namespace XRL.World.Parts.Mutation
 			Type = "Physical";
 		}
 
-		public string AdditionsManagerID => ParentObject.id + "::RitaTentacles::Add";
+		public string AdditionsManagerID => ParentObject.ID + "::RitaTentacles::Add";
 
 		public GameObject tentacleLauncher;
 
@@ -152,7 +152,7 @@ namespace XRL.World.Parts.Mutation
 
 					return false;
 				}
-				PlayWorldSound("hiss_high", 0.5f, 0f, combat: true);
+				PlayWorldSound("hiss_high", 0.5f, 0f, Combat: true);
 				UseEnergy(1000);
 				TargetCell = firePath.Path[firePath.Path.Count - 1];
 				Event event2 = Event.New("CommandFireMissile");
@@ -181,7 +181,7 @@ namespace XRL.World.Parts.Mutation
 			{
 				return;
 			}
-			BodyPart newTentacle = BodyRoot.AddPartAt(ourBack, "RitaTentacle", Manager: AdditionsManagerID);
+			BodyRoot.AddPartAt(ourBack, "RitaTentacle", Manager: AdditionsManagerID);
 		}
 		public override bool Mutate(GameObject GO, int Level)
 		{

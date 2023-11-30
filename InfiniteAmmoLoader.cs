@@ -58,7 +58,7 @@ namespace XRL.World.Parts
 			{
 				if (ProjectileObject != null)
 				{
-					E.SetParameter("Ammo", GameObject.create(ProjectileObject));
+					E.SetParameter("Ammo", GameObject.Create(ProjectileObject));
 				}
 			}
 			return base.FireEvent(E);
