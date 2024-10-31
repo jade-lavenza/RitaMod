@@ -59,27 +59,27 @@ namespace XRL.World.Parts.Mutation
 			return GetMaxDuration(Level);
 		}
 
-		public override void SaveData(SerializationWriter Writer)
+		public override void Write(GameObject Basis, SerializationWriter Writer)
 		{
-			base.SaveData(Writer);
+			base.Write(Basis, Writer);
 			Writer.WriteGameObjectList(Decoys);
 		}
 
-		public override void LoadData(SerializationReader Reader)
+		public override void Read(GameObject Basis, SerializationReader Reader)
 		{
-			base.LoadData(Reader);
+			base.Read(Basis, Reader);
 			Reader.ReadGameObjectList(Decoys);
 		}
 
 		public void PlaceDecoy(Cell C)
 		{
 			GameObject gameObject = GameObject.Create("Bio-Decoy");
-			gameObject.pRender.Tile = ParentObject.pRender.Tile;
-			gameObject.pRender.RenderString = ParentObject.pRender.RenderString;
-			gameObject.pRender.DisplayName = ParentObject.pRender.DisplayName;
+			gameObject.Render.Tile = ParentObject.Render.Tile;
+			gameObject.Render.RenderString = ParentObject.Render.RenderString;
+			gameObject.Render.DisplayName = ParentObject.Render.DisplayName;
 			Distraction part = gameObject.GetPart<Distraction>();
-			part.DistractionFor = ParentObject;
-			part.DistractionGeneratedBy = ParentObject;
+			part.Original = ParentObject;
+			part.Source = ParentObject;
 			string text = ParentObject.a + ParentObject.DisplayNameOnly;
 			gameObject.GetPart<Description>().Short = "A facsimile of " + text + ", made out of malleable flesh.";
 			gameObject.SetStringProperty("DecoyOf", text);
@@ -115,7 +115,7 @@ namespace XRL.World.Parts.Mutation
 				int activeDecoys = 0;
 				while (activeDecoys < GetMaxDecoys())
 				{
-					Cell cell = ParentObject.pPhysics.PickDestinationCell(maxRange, AllowVis.OnlyVisible, Locked: false);
+					Cell cell = ParentObject.Physics.PickDestinationCell(maxRange, AllowVis.OnlyVisible, Locked: false);
 					if (cell == null)
 					{
 						return false;
@@ -190,17 +190,17 @@ namespace XRL.World.Parts.Mutation
 			return true;
 		}
 
-		public override void Register(GameObject Object)
+		public override void Register(GameObject Object, IEventRegistrar Registrar)
 		{
-			Object.RegisterPartEvent(this, "BeginTakeAction");
-			Object.RegisterPartEvent(this, "AfterMoved");
-			Object.RegisterPartEvent(this, "CommandBioDecoy");
-			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
-			base.Register(Object);
+			Registrar.Register(BeginTakeActionEvent.ID);
+			Registrar.Register("AfterMoved");
+			Registrar.Register("CommandBioDecoy");
+			Registrar.Register(BeforeAbilityManagerOpenEvent.ID);
+			base.Register(Object, Registrar);
 		}
 
-        public override bool FireEvent(Event E)
-        {
+		public override bool FireEvent(Event E)
+		{
 			if (E.ID == "BeginTakeAction" && (Decoys.Count > 0))
 			{
 				if (TurnsRemaining > 0)
@@ -212,8 +212,8 @@ namespace XRL.World.Parts.Mutation
 					DestroyDecoys();
 				}
 			}
-            else if (E.ID == "CommandBioDecoy")
-            {
+			else if (E.ID == "CommandBioDecoy")
+			{
 				if (!IsMyActivatedAbilityUsable(DecoyActivatedAbilityID))
 				{
 					return false;
@@ -230,7 +230,7 @@ namespace XRL.World.Parts.Mutation
 				UseEnergy(1000, "Physical Mutation");
 				CooldownMyActivatedAbility(DecoyActivatedAbilityID, EffectCooldown);
 				TurnsRemaining = GetMaxDuration();
-            }
+			}
 			else if (E.ID == "AfterMoved")
 			{
 				for (int i = 0; i < Decoys.Count; i++)

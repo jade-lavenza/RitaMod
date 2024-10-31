@@ -31,18 +31,11 @@ namespace XRL.World.Effects
 			return true;
 		}
 
-		public override void Register(GameObject Object)
+		public override void Register(GameObject Object, IEventRegistrar Registrar)
 		{
-			Object.RegisterEffectEvent(this, "GetFeeling");
-			Object.RegisterEffectEvent(this, "DefenderAfterAttack");
-			base.Register(Object);
-		}
-
-		public override void Unregister(GameObject Object)
-		{
-			Object.UnregisterEffectEvent(this, "GetFeeling");
-			Object.UnregisterEffectEvent(this, "DefenderAfterAttack");
-			base.Unregister(Object);
+			Registrar.Register(GetFeelingEvent.ID);
+			Registrar.Register("DefenderAfterAttack");
+			base.Register(Object, Registrar);
 		}
 
 		public override bool Apply(GameObject Object)
@@ -79,11 +72,11 @@ namespace XRL.World.Effects
 				// or the enemy's feeling toward our Queen.
 				int oldFeeling = E.GetIntParameter("Feeling");
 				GameObject who = E.GetGameObjectParameter("Who");
-				if (who.pBrain == null)
+				if (who.Brain == null)
 				{
 					return true;
 				}
-				int newFeeling = who.pBrain.GetFeeling(ourQueen);
+				int newFeeling = who.Brain.GetFeeling(ourQueen);
 				if (Math.Sign(oldFeeling) == Math.Sign(newFeeling))
 				{
 					newFeeling = Math.Sign(newFeeling) * Math.Max(Math.Abs(oldFeeling), Math.Abs(newFeeling));
@@ -100,7 +93,7 @@ namespace XRL.World.Effects
 					Duration = 0;
 					GameObject oldQueen = ourQueen;
 					ourQueen = null;
-					Object.pBrain.WantToKill(oldQueen, "because I was betrayed");
+					Object.Brain.WantToKill(oldQueen, "because I was betrayed");
 					Object.RemoveEffect(this);
 				}
 			}

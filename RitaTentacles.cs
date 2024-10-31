@@ -35,14 +35,14 @@ namespace XRL.World.Parts.Mutation
 			return true;
 		}
 
-		public override void Register(GameObject Object)
+		public override void Register(GameObject Object, IEventRegistrar Registrar)
 		{
-			Object.RegisterPartEvent(this, "CommandRitaTentacleGrab");
-			Object.RegisterPartEvent(this, "GetTentacleGrabCapacity");
-			Object.RegisterPartEvent(this, "OnTentacleGrabTooHeavy");
-			Object.RegisterPartEvent(this, "OnTentacleGrabCantMove");
-			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
-			base.Register(Object);
+			Registrar.Register("CommandRitaTentacleGrab");
+			Registrar.Register("GetTentacleGrabCapacity");
+			Registrar.Register("OnTentacleGrabTooHeavy");
+			Registrar.Register("OnTentacleGrabCantMove");
+			Registrar.Register(BeforeAbilityManagerOpenEvent.ID);
+			base.Register(Object, Registrar);
 		}
 
 		public override string GetDescription()

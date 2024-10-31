@@ -59,11 +59,11 @@ namespace XRL.World.Parts.Mutation
 			return true;
 		}
 
-		public override void Register(GameObject Object)
+		public override void Register(GameObject Object, IEventRegistrar Registrar)
 		{
-			Object.RegisterPartEvent(this, "CommandHivePresence");
-			Object.RegisterPartEvent(this, "BeforeAbilityManagerOpen");
-			base.Register(Object);
+			Registrar.Register("CommandHivePresence");
+			Registrar.Register(BeforeAbilityManagerOpenEvent.ID);
+			base.Register(Object, Registrar);
 		}
 
 		public int GetMentalAttackModifier(int Level)

@@ -12,47 +12,47 @@ namespace XRL.World.Parts.Mutation
 			Type = "Physical";
 		}
 		
-        public int BaseSwimmingBonus = 100;
-        public int SwimmingBonusPerLevel = 50;
-        public int BaseWadingBonus = 50;
-        public int WadingBonusPerLevel = 25;
-        public int BaseDodgeBonus = 0;
-        public int DodgeBonusLevelsPer = 3;
+		public int BaseSwimmingBonus = 100;
+		public int SwimmingBonusPerLevel = 50;
+		public int BaseWadingBonus = 50;
+		public int WadingBonusPerLevel = 25;
+		public int BaseDodgeBonus = 0;
+		public int DodgeBonusLevelsPer = 3;
 
-        public virtual int GetDodgeBonus(int NewLevel)
-        {
-            return (int)(BaseDodgeBonus + (NewLevel / DodgeBonusLevelsPer));
-        }
+		public virtual int GetDodgeBonus(int NewLevel)
+		{
+			return (int)(BaseDodgeBonus + (NewLevel / DodgeBonusLevelsPer));
+		}
 
-        public virtual int GetDodgeBonus()
-        {
-            return GetDodgeBonus(Level);
-        }
+		public virtual int GetDodgeBonus()
+		{
+			return GetDodgeBonus(Level);
+		}
 
-        public virtual int GetSwimmingBonus(int NewLevel)
-        {
-            return (int)(BaseSwimmingBonus + (NewLevel * SwimmingBonusPerLevel));
-        }
+		public virtual int GetSwimmingBonus(int NewLevel)
+		{
+			return (int)(BaseSwimmingBonus + (NewLevel * SwimmingBonusPerLevel));
+		}
 
-        public virtual int GetSwimmingBonus()
-        {
-            return GetSwimmingBonus(Level);
-        }
+		public virtual int GetSwimmingBonus()
+		{
+			return GetSwimmingBonus(Level);
+		}
 
-        public virtual int GetWadingBonus(int NewLevel)
-        {
-            return (int)(BaseWadingBonus + (NewLevel * WadingBonusPerLevel));
-        }
+		public virtual int GetWadingBonus(int NewLevel)
+		{
+			return (int)(BaseWadingBonus + (NewLevel * WadingBonusPerLevel));
+		}
 
-        public virtual int GetWadingBonus()
-        {
-            return GetWadingBonus(Level);
-        }
+		public virtual int GetWadingBonus()
+		{
+			return GetWadingBonus(Level);
+		}
 
-        public override string GetDescription()
-        {
-            return "Your body is streamlined for the water.";
-        }
+		public override string GetDescription()
+		{
+			return "Your body is streamlined for the water.";
+		}
 
 		public override string GetLevelText(int Level)
 		{
@@ -74,11 +74,11 @@ namespace XRL.World.Parts.Mutation
 			return base.HandleEvent(E);
 		}
 
-        public override bool HandleEvent(GetWadingPerformanceEvent E)
-        {
-            E.MoveSpeedPenalty -= GetSwimmingBonus();
-            return base.HandleEvent(E);
-        }
+		public override bool HandleEvent(GetWadingPerformanceEvent E)
+		{
+			E.MoveSpeedPenalty -= GetSwimmingBonus();
+			return base.HandleEvent(E);
+		}
 
 		public override bool Mutate(GameObject GO, int Level)
 		{

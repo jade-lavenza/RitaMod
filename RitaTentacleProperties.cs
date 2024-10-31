@@ -8,18 +8,18 @@ namespace XRL.World.Parts
 	[Serializable]
 	public class RitaTentacleProperties : IPart
 	{
-        private RitaTentacles _ourMutation;
+		private RitaTentacles _ourMutation;
 		public RitaTentacles ourMutation
-        {
-            get
-            {
-                if (_ourMutation == null)
-                {
-                    _ourMutation = ParentObject?.Equipped?.GetPart<Mutations>()?.GetMutation("RitaTentacles") as RitaTentacles;
-                }
-                return _ourMutation;
-            }
-        }
+		{
+			get
+			{
+				if (_ourMutation == null)
+				{
+					_ourMutation = ParentObject?.Equipped?.GetPart<Mutations>()?.GetMutation("RitaTentacles") as RitaTentacles;
+				}
+				return _ourMutation;
+			}
+		}
 
 		public override bool SameAs(IPart p)
 		{
@@ -30,10 +30,10 @@ namespace XRL.World.Parts
 			return base.SameAs(p);
 		}
 
-		public override void Register(GameObject Object)
+		public override void Register(GameObject Object, IEventRegistrar Registrar)
 		{
-			Object.RegisterPartEvent(this, "QueryWeaponSecondaryAttackChance");
-			base.Register(Object);
+			Registrar.Register("QueryWeaponSecondaryAttackChance");
+			base.Register(Object, Registrar);
 		}
 
 		public override bool FireEvent(Event E)
